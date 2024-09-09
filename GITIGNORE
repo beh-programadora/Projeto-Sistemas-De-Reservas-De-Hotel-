@@ -1,0 +1,44 @@
+# MySQL dumps
+*.sql
+*.sql.gz
+
+# Backup and temporary files
+*.bak
+*.temp
+
+# OS-specific files
+.DS_Store
+Thumbs.db
+
+# IDE files
+.vscode/
+.idea/
+
+Enunciado do Projeto
+Título: Sistema de Gerenciamento de Hotel
+
+Descrição: O objetivo deste projeto é criar um sistema básico de gerenciamento de um hotel utilizando MySQL. O sistema deve permitir o cadastro de hóspedes, a criação de quartos com diferentes tipos e preços, o gerenciamento de reservas, e a exclusão de reservas e hóspedes, incluindo a remoção automática de todas as reservas associadas a um hóspede.
+
+Requisitos:
+
+Tabelas:
+
+Criar uma tabela de hóspedes com campos para nome, documento, telefone e e-mail.
+Criar uma tabela de quartos com campos para nome, tipo e preço.
+Criar uma tabela de reservas, relacionando hóspedes e quartos com as datas de check-in e check-out.
+Inserção de Dados:
+
+Inserir pelo menos 5 hóspedes e 10 quartos no banco de dados.
+Realizar 5 reservas para os hóspedes nos quartos cadastrados.
+Consultas:
+
+Consultar todos os hóspedes com suas respectivas reservas e detalhes dos quartos reservados.
+Listar todos os quartos disponíveis para um período determinado, baseado nas datas de check-in e check-out.
+Atualização de Dados:
+
+Permitir a atualização das informações de contato de um hóspede específico.
+Atualizar o preço de um quarto.
+Exclusão de Dados:
+
+Permitir a exclusão de uma reserva específica.
+Implementar a exclusão de hóspedes, removendo automaticamente todas as reservas associadas ao hóspede
