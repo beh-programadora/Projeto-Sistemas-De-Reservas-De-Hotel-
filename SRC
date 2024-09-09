@@ -1,0 +1,92 @@
+-- passo 1 : criar banco de dados 
+CREATE DATABASE HotelManagementSystem;
+USE HotelManagementSystem;
+
+-- passo 2: criar as tabelas 
+CREATE TABLE HÓSPEDE (
+id_hospede int AUTO_INCREMENT
+PRIMARY KEY,
+nome VARCHAR(100) NOT NULL,
+telefone VARCHAR(15),
+email Varchar (100) unique 
+);
+
+CREATE TABLE QUARTOS (
+    id_quarto INT AUTO_INCREMENT PRIMARY KEY,
+    nome VARCHAR(50) NOT NULL,
+    tipo ENUM('simples', 'duplo', 'luxo') NOT NULL,
+    preco DECIMAL(10,2) NOT NULL
+);
+CREATE TABLE hospede (
+    id_hospede INT AUTO_INCREMENT PRIMARY KEY,
+    nome VARCHAR(50) NOT NULL,
+    documento VARCHAR(20) NOT NULL,
+    telefone VARCHAR(15)
+);
+CREATE TABLE reservas (
+    id_reserva INT AUTO_INCREMENT PRIMARY KEY,
+    id_hospede INT NOT NULL,
+    id_quarto INT NOT NULL,
+    data_checkin DATE NOT NULL,
+    data_checkout DATE NOT NULL,
+    FOREIGN KEY (id_hospede) REFERENCES hospede(id_hospede),
+    FOREIGN KEY (id_quarto) REFERENCES quartos(id_quarto)
+);
+INSERT INTO hospede (nome, documento, telefone) VALUES
+('João Silva', '123456789', '5551999999999'),
+('Maria Souza', '987654321', '5551888888888'),
+('Carlos Pereira', '456789123', '5551777777777'),
+('Ana Costa', '789123456', '5551666666666'),
+('Pedro Oliveira', '321654987', '5551555555555');
+
+INSERT INTO quartos (nome, tipo, preco) VALUES
+('Quarto 101', 'simples', 150.00),
+('Quarto 102', 'simples', 150.00),
+('Quarto 201', 'duplo', 250.00),
+('Quarto 202', 'duplo', 250.00),
+('Quarto 301', 'luxo', 350.00),
+('Quarto 302', 'luxo', 350.00),
+('Quarto 401', 'simples', 150.00),
+('Quarto 402', 'duplo', 250.00),
+('Quarto 501', 'luxo', 350.00),
+('Quarto 502', 'luxo', 350.00);
+
+INSERT INTO reservas (id_hospede, id_quarto, data_checkin, data_checkout) VALUES
+(1, 1, '2024-09-10', '2024-09-12'),
+(2, 2, '2024-09-11', '2024-09-13'),
+(3, 3, '2024-09-12', '2024-09-14'),
+(4, 4, '2024-09-13', '2024-09-15'),
+(5, 5, '2024-09-14', '2024-09-16');
+SELECT 
+    h.nome AS Nome_Hospede,
+    r.id_reserva AS ID_Reserva,
+    r.data_checkin AS Data_Checkin,
+    r.data_checkout AS Data_Checkout,
+    q.nome AS Nome_Quarto,
+    q.tipo AS Tipo_Quarto,
+    q.preco AS Preco_Quarto
+FROM
+    reservas r
+JOIN
+    hospede h ON r.id_hospede = h.id_hospede
+JOIN
+    quartos q ON r.id_quarto = q.id_quarto;
+    
+UPDATE hospede
+SET telefone = '5551222333444', documento = '111222333'
+WHERE id_hospede = 1;
+
+UPDATE quartos
+SET preco = 200.00
+WHERE id_quarto = 1;
+
+DELETE FROM reservas
+WHERE id_reserva = 1;
+
+ALTER TABLE reservas
+DROP FOREIGN KEY reservas_ibfk_1;  -- Remover chave estrangeira existente (substitua 'reservas_ibfk_1' pelo nome da sua chave estrangeira)
+
+ALTER TABLE reservas
+ADD CONSTRAINT fk_hospede_reserva
+FOREIGN KEY (id_hospede) REFERENCES hospede(id_hospede)
+ON DELETE CASCADE;
